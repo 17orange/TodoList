@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TodoList.Models;
+using Microsoft.AspNet.Identity;
 
 namespace TodoList.Controllers
 {
@@ -48,11 +49,17 @@ namespace TodoList.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TodoTaskID,userID,name,description,creationTime,deadlineTime,statusID,isPublic")] TodoTask todoTask)
         {
+            todoTask.UserID = User.Identity.GetUserId();
+            todoTask.CreationTime = DateTime.Now;
             if (ModelState.IsValid)
             {
                 db.TodoTasks.Add(todoTask);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                // send them back to the last page they were looking at
+                string redirectController = (Session["LastController"] == null) ? "Index" : (Session["LastController"] as string);
+                string redirectAction = (Session["LastAction"] == null) ? "Index" : (Session["LastAction"] as string);
+                return RedirectToAction(redirectAction, redirectController);
             }
 
             return View(todoTask);

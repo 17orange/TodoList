@@ -1,5 +1,9 @@
 ﻿@{
     ViewBag.Title = "Home";
+    
+    // keep track of what was the last view we were looking at
+    Session.Add("LastController", "Home");
+    Session.Add("LastAction", "Index");
 }
 
 <div class="jumbotron">
