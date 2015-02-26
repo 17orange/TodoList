@@ -27,6 +27,7 @@ namespace TodoList.Models
         public DateTime CreationTime { get; set; }
 
         // deadline timestamp
+        public bool HasDeadline { get; set; }
         [Display(Name = "Deadline")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
