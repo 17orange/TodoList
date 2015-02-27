@@ -21,7 +21,7 @@ namespace TodoList.Controllers
 
             // show them any tasks that are public or belong to them
             string userID = User.Identity.GetUserId();
-            string query = "select * from TodoTasks join AspNetUsers on UserID=Id order by UserID, DeadlineTime";
+            string query = "select TodoTaskID, UserID, Username, TodoTasks.Name as Name, Description, DeadlineTime, IsPublic, Status.Name as StatusName from TodoTasks join AspNetUsers on UserID=Id join Status on TodoTasks.StatusID=Status.StatusID order by UserID, DeadlineTime";
             var taskList = db.Database.SqlQuery<DisplayTaskViewModel>(query);
 
             /*

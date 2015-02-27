@@ -174,6 +174,10 @@
     <Compile Include="Migrations\201502272028494_DeadlineFix.Designer.cs">
       <DependentUpon>201502272028494_DeadlineFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502272143567_AddStatusTable.cs" />
+    <Compile Include="Migrations\201502272143567_AddStatusTable.Designer.cs">
+      <DependentUpon>201502272143567_AddStatusTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -259,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502272028494_DeadlineFix.resx">
       <DependentUpon>201502272028494_DeadlineFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502272143567_AddStatusTable.resx">
+      <DependentUpon>201502272143567_AddStatusTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

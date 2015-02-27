@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -32,13 +33,26 @@ namespace TodoList.Models
 
         // the status of this task
         public int StatusID { get; set; }
+        [ForeignKey("StatusID")]
+        public Status TaskStatus { get; set; }
 
         // whether other users can see this task or not
         public bool IsPublic { get; set; }
     }
 
+    public class Status
+    {
+        // ID for the status
+        public int StatusID { get; set; }
+
+        // name of the status
+        [Required]
+        public string Name { get; set; }
+    }
+
     public class TodoTaskDBContext : DbContext
     {
         public DbSet<TodoTask> TodoTasks { get; set; }
+        public DbSet<Status> StatusTypes { get; set; }
     }
 }

@@ -18,7 +18,6 @@ namespace TodoList.Models
         public string Description { get; set; }
 
         // deadline timestamp
-        //public bool HasDeadline { get; set; }
         [Display(Name = "Deadline")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
@@ -47,6 +46,7 @@ namespace TodoList.Models
         public DateTime CreationTime { get; set; }
 
         // the status of this task
-        public int StatusID { get; set; }
+        [Display(Name = "Status")]
+        public string StatusName { get; set; }
     }
 }
