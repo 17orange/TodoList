@@ -20,63 +20,104 @@
             <p>Please @Html.ActionLink("log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) if you'd like to add a new task.</p>
         }
     </div>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreationTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeadlineTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsPublic)
-            </th>
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model)
+    @{
+        string currentUser = "";
+        foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Username)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DeadlineTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StatusName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsPublic)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.TodoTaskID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.TodoTaskID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.TodoTaskID })
-                </td>
-            </tr>
+            if( item.UserID != currentUser )
+            {
+                if( currentUser != "")
+                {
+                    @:</div>
+                }
+                @:<div class="col-lg-10">
+            <p>Tasks for @Html.DisplayFor(modelItem => item.Username)</p>
+                currentUser = item.UserID;
+            }
+            <div class="expandableDiv col-lg-10"> <!-- onmouseover="alert('a'); ShowDiv('7');" onmouseout="alert('b'); HideDiv('9');"> -->
+                <p>@Html.DisplayFor(modelItem => item.Name)</p>
+                <div class="expansion col-lg-8" style="display:none;">
+                    <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                </div>
+            </div>
+        }
+        if (currentUser != "")
+        {
+        @:</div>
+        }
+    }
+
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Username)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CreationTime)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DeadlineTime)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.StatusName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.IsPublic)
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+        {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Username)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreationTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DeadlineTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StatusName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IsPublic)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.TodoTaskID }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.TodoTaskID }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.TodoTaskID })
+                                    </td>
+                                </tr>
         }
 
-    </table>
-</div>
+                        </table>
+                    </div>
+
+<script type="text/javascript">
+    function ShowRow(div) {
+        div.find(".expansion").css("display", "inline-block");
+    }
+
+    function HideRow(div) {
+        div.find(".expansion").css("display", "none");
+    }
+
+    $(".expandableDiv").hover(function () { ShowRow($(this)); }, function () { HideRow($(this)); });
+</script>
+

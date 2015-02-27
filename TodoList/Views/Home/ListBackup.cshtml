@@ -1,0 +1,82 @@
+﻿@model IEnumerable<TodoList.Models.DisplayTaskViewModel>
+
+@{
+    ViewBag.Title = "Task List";
+}
+
+<div class="jumbotron">
+    <h1>Tasks to be Done - List</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-10">
+        @using Microsoft.AspNet.Identity
+        @if (Request.IsAuthenticated)
+        {
+            <p>@Html.ActionLink("Create a Task", "Create", "Task", routeValues: null, htmlAttributes: new { @class="btn btn-default"})</p>
+        }
+        else
+        {
+            <p>Please @Html.ActionLink("log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) if you'd like to add a new task.</p>
+        }
+    </div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeadlineTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsPublic)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeadlineTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsPublic)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TodoTaskID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.TodoTaskID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TodoTaskID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
