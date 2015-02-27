@@ -18,7 +18,7 @@ namespace TodoList.Controllers
         // GET: Task
         public ActionResult Index()
         {
-            return View(db.TodoTasks.ToList());
+            return View();
         }
 
         // GET: Task/Details/5
@@ -47,22 +47,23 @@ namespace TodoList.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TodoTaskID,userID,name,description,creationTime,deadlineTime,statusID,isPublic")] TodoTask todoTask)
+        //public ActionResult Create([Bind(Include = "TodoTaskID,UserID,Name,Description,CreationTime,DeadlineTime,StatusID,IsPublic")] TodoTask todoTask)
+        public ActionResult Create([Bind(Include = "userID,name,description,deadlineTime,isPublic")] TodoTask todoTask)
         {
             todoTask.UserID = User.Identity.GetUserId();
             todoTask.CreationTime = DateTime.Now;
-            if (ModelState.IsValid)
+            todoTask.StatusID = 1;
+            if (true || ModelState.IsValid)
             {
                 db.TodoTasks.Add(todoTask);
                 db.SaveChanges();
 
                 // send them back to the last page they were looking at
-                string redirectController = (Session["LastController"] == null) ? "Index" : (Session["LastController"] as string);
-                string redirectAction = (Session["LastAction"] == null) ? "Index" : (Session["LastAction"] as string);
-                return RedirectToAction(redirectAction, redirectController);
+                string redirectAction = (Session["LastAction"] == null) ? "List" : (Session["LastAction"] as string);
+                return RedirectToAction(redirectAction, "Home");
             }
 
-            return View(todoTask);
+            return View();
         }
 
         // GET: Task/Edit/5

@@ -1,11 +1,11 @@
-﻿@model IEnumerable<TodoList.Models.TodoTask>
+﻿@model IEnumerable<TodoList.Models.DisplayTaskViewModel>
 
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Task List";
 }
 
 <div class="jumbotron">
-    <h1>All Tasks</h1>
+    <h1>Tasks to be Done - List</h1>
 </div>
 
 <div class="row">
@@ -23,7 +23,7 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserID)
+                @Html.DisplayNameFor(model => model.Username)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
@@ -50,7 +50,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserID)
+                    @Html.DisplayFor(modelItem => item.Username)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)

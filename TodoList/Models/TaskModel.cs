@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace TodoList.Models
 {
@@ -11,35 +12,28 @@ namespace TodoList.Models
         public int TodoTaskID { get; set; }
 
         // ID of the creator of this task
+        [Required]
         public string UserID { get; set; }
 
         // short description of the task
-        [Display(Name="Task Name")]
         [Required]
         public string Name { get; set; }
 
         // full description of the task
-        [Display(Name = "Full Description")]
         [Required]
         public string Description { get; set; }
 
         // creation timestamp
+        [Required]
         public DateTime CreationTime { get; set; }
 
         // deadline timestamp
-        public bool HasDeadline { get; set; }
-        [Display(Name = "Deadline")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
-        //[DataType(DataType.DateTime)]
-        //[DisplayFormat(DataFormatString = "{0:HH:mm:ss MM-dd-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime DeadlineTime { get; set; }
+        public Nullable<DateTime> DeadlineTime { get; set; }
 
         // the status of this task
         public int StatusID { get; set; }
 
         // whether other users can see this task or not
-        [Display(Name = "Is Public")]
         public bool IsPublic { get; set; }
     }
 

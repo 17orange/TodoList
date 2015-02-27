@@ -14,14 +14,28 @@ namespace TodoList.Controllers
     {
         private TodoTaskDBContext db = new TodoTaskDBContext();
 
-        public ActionResult Index()
+        public ActionResult List()
         {
             // keep track of what was the last view we were looking at
-            Session.Add("LastController", "Home");
-            Session.Add("LastAction", "Index");
+            Session.Add("LastAction", "List");
 
-            //return View(db.TodoTasks.Where(t => t.IsPublic || (t.UserID == User.Identity.GetUserId())));
-            return View(db.TodoTasks.ToList());
+            // show them any tasks that are public or belong to them
+            string userID = User.Identity.GetUserId();
+            string query = "select * from TodoTasks join AspNetUsers on UserID=Id order by UserID, DeadlineTime";
+            var taskList = db.Database.SqlQuery<DisplayTaskViewModel>(query);
+
+            /*
+            var taskList = db.TodoTasks.Where(t => ((t.IsPublic == true) || (t.UserID == userID)));
+            taskList = from t in taskList
+                       join u in db.AspNetUsers on t.UserID equals u.Id
+                       select new {
+                           TaskID = t.TodoTaskID,
+                           Username = u.UserName,
+                           TaskName = t.Name,
+                           Deadline = t.DeadlineTime
+                       }
+             */
+            return View(taskList);
         }
     }
 }
