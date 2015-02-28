@@ -25,7 +25,6 @@ namespace TodoList.Models
         public string Description { get; set; }
 
         // creation timestamp
-        [Required]
         public DateTime CreationTime { get; set; }
 
         // deadline timestamp

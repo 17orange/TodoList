@@ -47,13 +47,12 @@ namespace TodoList.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "TodoTaskID,UserID,Name,Description,CreationTime,DeadlineTime,StatusID,IsPublic")] TodoTask todoTask)
         public ActionResult Create([Bind(Include = "userID,name,description,deadlineTime,isPublic")] TodoTask todoTask)
         {
-            todoTask.UserID = User.Identity.GetUserId();
             todoTask.CreationTime = DateTime.Now;
             todoTask.StatusID = 1;
-            if (true || ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
                 db.TodoTasks.Add(todoTask);
                 db.SaveChanges();
@@ -86,13 +85,21 @@ namespace TodoList.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TodoTaskID,userID,name,description,creationTime,deadlineTime,statusID,isPublic")] TodoTask todoTask)
+        public ActionResult Edit([Bind(Include = "TodoTaskID,userID,name,description,deadlineTime,isPublic")] TodoTask todoTask)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && todoTask.UserID == User.Identity.GetUserId())
             {
-                db.Entry(todoTask).State = EntityState.Modified;
+                //db.Entry(todoTask).State = EntityState.Modified;
+                db.TodoTasks.Attach(todoTask);
+                db.Entry(todoTask).Property("Name").IsModified = true;
+                db.Entry(todoTask).Property("Description").IsModified = true;
+                db.Entry(todoTask).Property("DeadlineTime").IsModified = true;
+                db.Entry(todoTask).Property("IsPublic").IsModified = true;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                // send them back to the last page they were looking at
+                string redirectAction = (Session["LastAction"] == null) ? "List" : (Session["LastAction"] as string);
+                return RedirectToAction(redirectAction, "Home");
             }
             return View(todoTask);
         }

@@ -52,6 +52,13 @@
                 <div class="expansion col-lg-8" style="display:none;">
                     <p>Details:</p>
                     <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                    @if (Request.IsAuthenticated && item.UserID == User.Identity.GetUserId())
+                    {
+                        <p>
+                            @Html.ActionLink("Edit this Task", "Edit", "Task", routeValues: new { id = item.TodoTaskID }, htmlAttributes: new { @class = "btn btn-default" })
+                            @Html.ActionLink("Delete this Task", "Delete", "Task", routeValues: new { id = item.TodoTaskID }, htmlAttributes: new { @class = "btn btn-default" })
+                        </p>
+                    }
                 </div>
             </div>
         }

@@ -26,7 +26,8 @@ textarea {
 /* Style our task divs */
 .expandableDiv {
     border: 3px solid black;
-    background-color: #CCCCCC;
+    border-radius: 3px 4px;
+    background-color: #DDDDDD;
     margin: 10px;
 }
 
