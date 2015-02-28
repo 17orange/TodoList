@@ -50,7 +50,7 @@ namespace TodoList.Controllers
         public ActionResult Create([Bind(Include = "userID,name,description,deadlineTime,isPublic")] TodoTask todoTask)
         {
             todoTask.CreationTime = DateTime.Now;
-            todoTask.StatusID = 1;
+            todoTask.StatusID = TodoList.Models.Status.NEEDS_DONE;
 
             if (ModelState.IsValid)
             {
@@ -87,9 +87,10 @@ namespace TodoList.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TodoTaskID,userID,name,description,deadlineTime,isPublic")] TodoTask todoTask)
         {
+            // make sure its a valid state and they are the owner of this task
             if (ModelState.IsValid && todoTask.UserID == User.Identity.GetUserId())
             {
-                //db.Entry(todoTask).State = EntityState.Modified;
+                // only modify these particular fields.  leave the rest alone.
                 db.TodoTasks.Attach(todoTask);
                 db.Entry(todoTask).Property("Name").IsModified = true;
                 db.Entry(todoTask).Property("Description").IsModified = true;
@@ -124,10 +125,41 @@ namespace TodoList.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            // make sure they are the owner of this task
             TodoTask todoTask = db.TodoTasks.Find(id);
-            db.TodoTasks.Remove(todoTask);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (todoTask.UserID == User.Identity.GetUserId())
+            {
+                db.TodoTasks.Remove(todoTask);
+                db.SaveChanges();
+
+                // send them back to the last page they were looking at
+                string redirectAction = (Session["LastAction"] == null) ? "List" : (Session["LastAction"] as string);
+                return RedirectToAction(redirectAction, "Home");
+            }
+            return View(todoTask);
+        }
+
+        // POST: Task/ChangeStatus/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeStatus(int id, int statusID)
+        {
+            // make sure they are the owner of this task
+            TodoTask todoTask = db.TodoTasks.Find(id);
+            // make sure they are the owner of this task
+            if (todoTask.UserID == User.Identity.GetUserId())
+            {
+                // only modify these particular fields.  leave the rest alone.
+                todoTask.StatusID = statusID;
+                db.TodoTasks.Attach(todoTask);
+                db.Entry(todoTask).Property("StatusID").IsModified = true;
+                db.SaveChanges();
+
+                // send them back to the last page they were looking at
+                string redirectAction = (Session["LastAction"] == null) ? "List" : (Session["LastAction"] as string);
+                return RedirectToAction(redirectAction, "Home");
+            }
+            return View(todoTask);
         }
 
         protected override void Dispose(bool disposing)

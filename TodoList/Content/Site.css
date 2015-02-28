@@ -30,6 +30,18 @@ textarea {
     background-color: #DDDDDD;
     margin: 10px;
 }
+.overDue {
+    background-color: #FF8888;
+}
+.inProgress {
+    background-color: #ffff88;
+}
+.needsDone {
+    background-color: #DDDDDD;
+}
+.complete {
+    background-color: #88ff88;
+}
 
 /* styling for the sections of each task */
 .taskName {

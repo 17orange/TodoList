@@ -35,6 +35,9 @@ namespace TodoList.Models
         // creation timestamp
         public DateTime? CreationTime { get; set; }
 
+        // the status of this task
+        public int StatusID { get; set; }
+
         // whether other users can see this task or not
         [Display(Name = "Is Public")]
         public bool IsPublic { get; set; }

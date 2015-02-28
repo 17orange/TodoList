@@ -251,6 +251,7 @@
     <Content Include="Views\Task\Edit.cshtml" />
     <Content Include="Views\Task\Index.cshtml" />
     <Content Include="Views\Calendar\Day.cshtml" />
+    <Content Include="Views\Task\ChangeStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

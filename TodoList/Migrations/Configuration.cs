@@ -23,17 +23,17 @@ namespace TodoList.Migrations
                 s => s.StatusID,
                 new TodoList.Models.Status
                 {
-                    StatusID = 1,
+                    StatusID = TodoList.Models.Status.NEEDS_DONE,
                     Name = "Needs Done"
                 },
                 new TodoList.Models.Status
                 {
-                    StatusID = 2,
+                    StatusID = TodoList.Models.Status.IN_PROGRESS,
                     Name = "In Progress"
                 },
                 new TodoList.Models.Status
                 {
-                    StatusID = 3,
+                    StatusID = TodoList.Models.Status.COMPLETE,
                     Name = "Complete"
                 }
             );
@@ -48,7 +48,7 @@ namespace TodoList.Migrations
                     CreationTime = DateTime.Parse("2015-02-25 12:34:56"),
                     Name = "Unspecified Task",
                     Description = "Just get this done at some point, doesn't matter when",
-                    StatusID = 1,
+                    StatusID = TodoList.Models.Status.NEEDS_DONE,
                     IsPublic = true
                 },
                 new TodoList.Models.TodoTask
@@ -59,7 +59,7 @@ namespace TodoList.Migrations
                     Name = "Build Todo List Tracker",
                     Description = "This needs done by Monday morning.",
                     DeadlineTime = DateTime.Parse("2015-03-02 08:00:00"),
-                    StatusID = 1,
+                    StatusID = TodoList.Models.Status.NEEDS_DONE,
                     IsPublic = true
                 },
                 new TodoList.Models.TodoTask
@@ -70,7 +70,7 @@ namespace TodoList.Migrations
                     Name = "Buy Ash Christmas present",
                     Description = "Make sure it's something she likes or you're in trouble.",
                     DeadlineTime = DateTime.Parse("2015-12-25 04:00:00"),
-                    StatusID = 1,
+                    StatusID = TodoList.Models.Status.NEEDS_DONE,
                     IsPublic = false
                 },
                 new TodoList.Models.TodoTask
@@ -80,7 +80,7 @@ namespace TodoList.Migrations
                     CreationTime = DateTime.Parse("2015-02-25 16:34:56"),
                     Name = "Paint deck",
                     Description = "Redo the deck out back whenever it warms up.",
-                    StatusID = 1,
+                    StatusID = TodoList.Models.Status.NEEDS_DONE,
                     IsPublic = false
                 },
                 new TodoList.Models.TodoTask
@@ -91,7 +91,7 @@ namespace TodoList.Migrations
                     Name = "Public Task (deadline)",
                     Description = "description 1",
                     DeadlineTime = DateTime.Parse("2015-03-05 00:00:00"),
-                    StatusID = 1,
+                    StatusID = TodoList.Models.Status.NEEDS_DONE,
                     IsPublic = true
                 },
                 new TodoList.Models.TodoTask
@@ -101,7 +101,7 @@ namespace TodoList.Migrations
                     CreationTime = DateTime.Parse("2015-02-26 07:34:56"),
                     Name = "Public Task (whenever)",
                     Description = "description 2",
-                    StatusID = 1,
+                    StatusID = TodoList.Models.Status.NEEDS_DONE,
                     IsPublic = true
                 },
                 new TodoList.Models.TodoTask
@@ -112,7 +112,7 @@ namespace TodoList.Migrations
                     Name = "Private Task (deadline)",
                     Description = "description 3",
                     DeadlineTime = DateTime.Parse("2015-03-15 00:00:00"),
-                    StatusID = 1,
+                    StatusID = TodoList.Models.Status.NEEDS_DONE,
                     IsPublic = false
                 },
                 new TodoList.Models.TodoTask
@@ -122,7 +122,7 @@ namespace TodoList.Migrations
                     CreationTime = DateTime.Parse("2015-02-26 19:34:56"),
                     Name = "Private Task (whenever)",
                     Description = "description 4",
-                    StatusID = 1,
+                    StatusID = TodoList.Models.Status.NEEDS_DONE,
                     IsPublic = false
                 }
             );

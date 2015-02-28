@@ -41,6 +41,10 @@ namespace TodoList.Models
 
     public class Status
     {
+        public const int NEEDS_DONE = 1;
+        public const int IN_PROGRESS = 2;
+        public const int COMPLETE = 3;
+
         // ID for the status
         public int StatusID { get; set; }
 

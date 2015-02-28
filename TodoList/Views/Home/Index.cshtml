@@ -35,7 +35,27 @@
             <p>Tasks for @Html.DisplayFor(modelItem => item.Username)</p>
                 currentUser = item.UserID;
             }
-            <div class="expandableDiv col-lg-10">
+            <div @{ 
+                // style the div based on the task status
+                string className = "expandableDiv col-lg-10";
+                if( item.StatusID != 3 && (item.DeadlineTime != null) && (item.DeadlineTime < DateTime.Now) )
+                {
+                    className += " overDue";
+                }
+                else if (item.StatusID == 1)
+                {
+                    className += " needsDone";
+                }
+                else if (item.StatusID == 2)
+                {
+                    className += " inProgress";
+                }
+                else if (item.StatusID == 3)
+                {
+                    className += " complete";
+                }
+                @:class="@className"
+              }>
                 <div>
                     <span class="taskName">@Html.DisplayFor(modelItem => item.Name)</span>
                     <span class="deadline">
@@ -57,6 +77,16 @@
                         <p>
                             @Html.ActionLink("Edit this Task", "Edit", "Task", routeValues: new { id = item.TodoTaskID }, htmlAttributes: new { @class = "btn btn-default" })
                             @Html.ActionLink("Delete this Task", "Delete", "Task", routeValues: new { id = item.TodoTaskID }, htmlAttributes: new { @class = "btn btn-default" })
+                            @if (item.StatusID == TodoList.Models.Status.NEEDS_DONE)
+                            {
+                                /**/
+                                using (Html.BeginForm("ChangeStatus", "Task", new { id=item.TodoTaskID, statusID=TodoList.Models.Status.IN_PROGRESS}, FormMethod.Post, htmlAttributes: new { id = ("begin" + item.TodoTaskID) }))
+                                {
+                                    @Html.AntiForgeryToken();
+                                }/**/
+
+                                <a href="javascript:ConfirmBegin(@item.TodoTaskID);" class="btn btn-default">Begin this Task</a>
+                            }
                         </p>
                     }
                 </div>
@@ -130,6 +160,15 @@
                     </div>
 
 <script type="text/javascript">
+    function ConfirmBegin(taskID)
+    {
+        // begin task
+        if( confirm("Are you sure you want to begin this task?") )
+        {
+            $("form#begin" + taskID).submit();
+        }
+    }
+
     function ShowRow(div) {
         div.find(".expansion").css("display", "inline-block");
     }
