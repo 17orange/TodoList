@@ -151,8 +151,18 @@ namespace TodoList.Controllers
             {
                 // only modify these particular fields.  leave the rest alone.
                 todoTask.StatusID = statusID;
+                if( statusID == TodoList.Models.Status.COMPLETE )
+                {
+                    todoTask.CompletionTime = DateTime.Now;
+                }
+
+                // send it into the database
                 db.TodoTasks.Attach(todoTask);
                 db.Entry(todoTask).Property("StatusID").IsModified = true;
+                if (statusID == TodoList.Models.Status.COMPLETE)
+                {
+                    db.Entry(todoTask).Property("CompletionTime").IsModified = true;
+                }
                 db.SaveChanges();
 
                 // send them back to the last page they were looking at

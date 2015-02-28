@@ -30,6 +30,9 @@ namespace TodoList.Models
         // deadline timestamp
         public Nullable<DateTime> DeadlineTime { get; set; }
 
+        // completed timestamp
+        public Nullable<DateTime> CompletionTime { get; set; }
+
         // the status of this task
         public int StatusID { get; set; }
         [ForeignKey("StatusID")]

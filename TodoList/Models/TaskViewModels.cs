@@ -55,5 +55,11 @@ namespace TodoList.Models
         // the status of this task
         [Display(Name = "Status")]
         public string StatusName { get; set; }
+
+        // completion timestamp
+        [Display(Name = "Completed")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:h:mmtt on MMM d, yyyy}")]
+        public DateTime? CompletionTime { get; set; }
     }
 }
