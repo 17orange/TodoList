@@ -35,9 +35,22 @@
             <p>Tasks for @Html.DisplayFor(modelItem => item.Username)</p>
                 currentUser = item.UserID;
             }
-            <div class="expandableDiv col-lg-10"> <!-- onmouseover="alert('a'); ShowDiv('7');" onmouseout="alert('b'); HideDiv('9');"> -->
-                <p>@Html.DisplayFor(modelItem => item.Name)</p>
+            <div class="expandableDiv col-lg-10">
+                <div>
+                    <span class="taskName">@Html.DisplayFor(modelItem => item.Name)</span>
+                    <span class="deadline">
+                        @if (item.DeadlineTime == null)
+                        {
+                            @:No deadline
+                        }
+                        else
+                        {
+                            @:Deadline: @Html.DisplayFor(modelItem => item.DeadlineTime)
+                        }
+                    </span>
+                </div>
                 <div class="expansion col-lg-8" style="display:none;">
+                    <p>Details:</p>
                     <p>@Html.DisplayFor(modelItem => item.Description)</p>
                 </div>
             </div>

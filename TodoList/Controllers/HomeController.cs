@@ -14,14 +14,17 @@ namespace TodoList.Controllers
     {
         private TodoTaskDBContext db = new TodoTaskDBContext();
 
-        public ActionResult List()
+        public ActionResult Index()
         {
             // keep track of what was the last view we were looking at
-            Session.Add("LastAction", "List");
+            Session.Add("LastAction", "Index");
 
             // show them any tasks that are public or belong to them
             string userID = User.Identity.GetUserId();
-            string query = "select TodoTaskID, UserID, Username, TodoTasks.Name as Name, Description, CreationTime, DeadlineTime, IsPublic, Status.Name as StatusName, IIF(TodoTasks.UserID='" + userID + "',1,0) as isMe from TodoTasks join AspNetUsers on UserID=Id join Status on TodoTasks.StatusID=Status.StatusID order by isMe desc, UserID, TodoTasks.StatusID, DeadlineTime";
+            string query = "select TodoTaskID, UserID, Username, TodoTasks.Name as Name, Description, CreationTime, DeadlineTime, IsPublic, Status.Name as StatusName, IIF(TodoTasks.UserID='" + userID + "',1,0) as isMe, IIF(DeadlineTime is null,0,1) as hasDeadline " + 
+                           "from TodoTasks join AspNetUsers on UserID=Id join Status on TodoTasks.StatusID=Status.StatusID " + 
+                           "where isPublic = 1 or TodoTasks.UserID='" + userID + "'" +
+                           "order by isMe desc, UserID, TodoTasks.StatusID, hasDeadline desc, DeadlineTime";
             var taskList = db.Database.SqlQuery<DisplayTaskViewModel>(query);
 
             return View(taskList);

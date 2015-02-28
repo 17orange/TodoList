@@ -20,7 +20,7 @@ namespace TodoList.Models
         // deadline timestamp
         [Display(Name = "Deadline")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:h:mmtt on MMM d, yyyy}")]
         //[DataType(DataType.DateTime)]
         //[DisplayFormat(DataFormatString = "{0:HH:mm:ss MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DeadlineTime { get; set; }
