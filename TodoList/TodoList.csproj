@@ -186,6 +186,11 @@
     <Compile Include="Migrations\201502282056280_AddCompletionTime.Designer.cs">
       <DependentUpon>201502282056280_AddCompletionTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\ApplicationDbContext\201503010201067_InitialUsersMigration.cs" />
+    <Compile Include="Migrations\ApplicationDbContext\201503010201067_InitialUsersMigration.Designer.cs">
+      <DependentUpon>201503010201067_InitialUsersMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ApplicationDbContext\Configuration.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -196,6 +201,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\TodoList.mdf" />
+    <Content Include="App_Data\TodoList_log.ldf">
+      <DependentUpon>TodoList.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -256,9 +265,7 @@
     <Content Include="Views\Task\Index.cshtml" />
     <Content Include="Views\Calendar\Day.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -280,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502282056280_AddCompletionTime.resx">
       <DependentUpon>201502282056280_AddCompletionTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\ApplicationDbContext\201503010201067_InitialUsersMigration.resx">
+      <DependentUpon>201503010201067_InitialUsersMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

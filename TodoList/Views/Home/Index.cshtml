@@ -2,6 +2,14 @@
 
 @{
     ViewBag.Title = "Task List";
+    if (Session["ShowOtherUsersTasks"] == null)
+    {
+        Session["ShowOtherUsersTasks"] = "Y";
+    }
+    if (Session["ShowCompletedTasks"] == null)
+    {
+        Session["ShowCompletedTasks"] = "Y";
+    }
 }
 
 <div class="jumbotron">
@@ -10,15 +18,21 @@
 
 <div class="row">
     <div class="col-lg-10">
-        @using Microsoft.AspNet.Identity
-        @if (Request.IsAuthenticated)
-        {
-            <p>@Html.ActionLink("Create a Task", "Create", "Task", routeValues: null, htmlAttributes: new { @class="btn btn-default"})</p>
-        }
-        else
-        {
-            <p>Please @Html.ActionLink("log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) if you'd like to add a new task.</p>
-        }
+        <p>
+            @using Microsoft.AspNet.Identity
+            @if (Request.IsAuthenticated)
+            {
+                @Html.ActionLink("Create a Task", "Create", "Task", routeValues: null, htmlAttributes: new { @class = "btn btn-default" })
+                @Html.CheckBox("showOthers", ((string)Session["ShowOtherUsersTasks"] == "Y"), htmlAttributes: new { style = "margin-left:30px;", onchange = "SetShowOthers(this.checked);" })
+                @Html.Label("", "Show Other Users' Tasks")
+            }
+            else
+            {
+                @:Please @Html.ActionLink("log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) if you'd like to add a new task.
+            }
+            @Html.CheckBox("showCompleted", ((string)Session["ShowCompletedTasks"] == "Y"), htmlAttributes: new { style = "margin-left:30px;", onchange = "SetShowCompleted(this.checked);" })
+            @Html.Label("", "Show Completed Tasks")
+        </p>
     </div>
 
     @{
@@ -31,13 +45,26 @@
                 {
                     @:</div>
                 }
-                @:<div class="col-lg-10">
+                // tag this task if it's not the logged in user
+                var userBlockClassName = "col-lg-10";
+                var userBlockStyle = "display:inline-block";
+                if (item.UserID != User.Identity.GetUserId())
+                {
+                    userBlockClassName += " notOwnedByMe";
+                    var test2 = Session["ShowOtherUsersTasks"];
+                    if (((string)Session["ShowOtherUsersTasks"] != "Y"))
+                    {
+                        userBlockStyle = "display:none";
+                    }
+                }                
+                @:<div class="@userBlockClassName" style="@userBlockStyle">
             <p>Tasks for @Html.DisplayFor(modelItem => item.Username)</p>
                 currentUser = item.UserID;
             }
             <div @{ 
                 // style the div based on the task status
                 string className = "expandableDiv col-lg-10";
+                string style = "display:inline-block";
                 if( item.StatusID != TodoList.Models.Status.COMPLETE && (item.DeadlineTime != null) && (item.DeadlineTime < DateTime.Now) )
                 {
                     className += " overDue";
@@ -53,8 +80,12 @@
                 else if (item.StatusID == TodoList.Models.Status.COMPLETE)
                 {
                     className += " complete";
+                    if( (string)Session["ShowCompletedTasks"] != "Y" )
+                    {
+                        style = "display:none";
+                    }
                 }
-                @:class="@className"
+                @:class="@className" style="@style"
               }>
                 <div>
                     <span class="taskName">@Html.DisplayFor(modelItem => item.Name)</span>
@@ -134,6 +165,22 @@
         if (confirm("Are you sure you've completed this task?")) {
             $("form#complete" + taskID).submit();
         }
+    }
+
+    function SetShowOthers(showThem) {
+        // set all of the tasks owned by others to this value
+        $(".notOwnedByMe").css("display", (showThem ? "inline-block" : "none"));
+
+        // flip the session variable
+        $.post("/Home/SetSession", { key: "ShowOtherUsersTasks", value: (showThem ? "Y" : "N") });
+    }
+
+    function SetShowCompleted(showThem) {
+        // set all of the tasks owned by others to this value
+        $(".complete").css("display", (showThem ? "inline-block" : "none"));
+
+        // flip the session variable
+        $.post("/Home/SetSession", { key: "ShowCompletedTasks", value: (showThem ? "Y" : "N") });
     }
 
     function ShowRow(div) {
