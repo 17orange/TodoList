@@ -105,6 +105,8 @@
                     </span>
                 </div>
                 <div class="expansion col-lg-8" style="display:none;">
+                    <p>Created: @Html.DisplayFor(modelItem => item.CreationTime)</p>
+                    <p>Status: @Html.DisplayFor(modelItem => item.StatusName)</p>
                     <p>Details:</p>
                     <p>@Html.DisplayFor(modelItem => item.Description)</p>
                     @if (Request.IsAuthenticated && item.UserID == User.Identity.GetUserId())
@@ -176,21 +178,24 @@
     }
 
     function SetShowCompleted(showThem) {
-        // set all of the tasks owned by others to this value
+        // set all of the completed tasks to this value
         $(".complete").css("display", (showThem ? "inline-block" : "none"));
 
         // flip the session variable
         $.post("/Home/SetSession", { key: "ShowCompletedTasks", value: (showThem ? "Y" : "N") });
     }
 
+    // show the specified div
     function ShowRow(div) {
         div.find(".expansion").css("display", "inline-block");
     }
 
+    // hide the specified div
     function HideRow(div) {
         div.find(".expansion").css("display", "none");
     }
 
+    // add the proper hover function to all of the divs we can show/hide
     $(".expandableDiv").hover(function () { ShowRow($(this)); }, function () { HideRow($(this)); });
 </script>
 

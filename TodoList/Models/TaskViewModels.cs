@@ -20,6 +20,7 @@ namespace TodoList.Models
 
         // full description of the task
         [Display(Name = "Full Description")]
+        [DataType(DataType.MultilineText)]
         [Required]
         public string Description { get; set; }
 
@@ -28,8 +29,6 @@ namespace TodoList.Models
         [DataType(DataType.DateTime)]
         //[DisplayFormat(DataFormatString = "{0:h:MM-dd-yyyy}", ApplyFormatInEditMode=true)]
         [DisplayFormat(DataFormatString = "{0:h:mmtt on MMM d, yyyy}")]
-        //[DataType(DataType.DateTime)]
-        //[DisplayFormat(DataFormatString = "{0:HH:mm:ss MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? DeadlineTime { get; set; }
 
         // creation timestamp

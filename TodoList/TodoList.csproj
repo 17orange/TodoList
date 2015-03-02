@@ -186,6 +186,10 @@
     <Compile Include="Migrations\201502282056280_AddCompletionTime.Designer.cs">
       <DependentUpon>201502282056280_AddCompletionTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503020411284_MadeDescriptionMultiline.cs" />
+    <Compile Include="Migrations\201503020411284_MadeDescriptionMultiline.Designer.cs">
+      <DependentUpon>201503020411284_MadeDescriptionMultiline.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ApplicationDbContext\201503010201067_InitialUsersMigration.cs" />
     <Compile Include="Migrations\ApplicationDbContext\201503010201067_InitialUsersMigration.Designer.cs">
       <DependentUpon>201503010201067_InitialUsersMigration.cs</DependentUpon>
@@ -287,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502282056280_AddCompletionTime.resx">
       <DependentUpon>201502282056280_AddCompletionTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503020411284_MadeDescriptionMultiline.resx">
+      <DependentUpon>201503020411284_MadeDescriptionMultiline.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\ApplicationDbContext\201503010201067_InitialUsersMigration.resx">
       <DependentUpon>201503010201067_InitialUsersMigration.cs</DependentUpon>

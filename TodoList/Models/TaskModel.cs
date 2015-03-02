@@ -22,6 +22,7 @@ namespace TodoList.Models
 
         // full description of the task
         [Required]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         // creation timestamp
