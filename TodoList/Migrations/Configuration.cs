@@ -59,7 +59,8 @@ namespace TodoList.Migrations
                     Name = "Build Todo List Tracker",
                     Description = "This needs done by Monday morning.",
                     DeadlineTime = DateTime.Parse("2015-03-02 08:00:00"),
-                    StatusID = TodoList.Models.Status.NEEDS_DONE,
+                    CompletionTime = DateTime.Parse("2015-03-01 19:30:00"),
+                    StatusID = TodoList.Models.Status.COMPLETE,
                     IsPublic = true
                 },
                 new TodoList.Models.TodoTask
