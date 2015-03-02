@@ -9,11 +9,11 @@ users have the option to hide completed tasks, tasks belonging to other users, o
 project is seeded with a few example users and tasks.  The login information for them both is 
 below.  
 
-Username: brad
-Password: P4$$w0rd
+- Username: brad
+- Password: P4$$w0rd
 
-Username: OtherGuy
-Password: Zomg!23
+- Username: OtherGuy
+- Password: Zomg!23
 
 There are a lot of improvements that could be made to this project in the future.  Some of the
 ones I've thought about include:
