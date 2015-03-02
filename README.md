@@ -10,12 +10,12 @@ project is seeded with a few example users and tasks.  The login information for
 below.  
 
 - Username: brad
-- Password: P4$$w0rd
+<br>Password: P4$$w0rd
 
 - Username: OtherGuy
-- Password: Zomg!23
+<br>Password: Zomg!23
 
-There are a lot of improvements that could be made to this project in the future.  Some of the
+There are a number of improvements that could be made to this project in the future.  Some of the
 ones I've thought about include:
 - Change the deadline picker on creation and editing to be a calendar/clock picker instead of 
   just a text entry field
