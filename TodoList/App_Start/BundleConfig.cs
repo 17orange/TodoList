@@ -23,6 +23,9 @@ namespace TodoList
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            // added a new bundle to hold my custom javascript
+            bundles.Add(new ScriptBundle("~/bundles/todoList").Include("~/Scripts/todoList.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));

@@ -29,6 +29,7 @@ textarea {
     border-radius: 3px 4px;
     background-color: #DDDDDD;
     margin: 10px;
+    width: 100%;
 }
 .overDue {
     background-color: #FF8888;
